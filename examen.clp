@@ -9,14 +9,36 @@
 (defrule coger_naranjas
     (stock naranjas ?n)
     (robot capacidad ?c)
-    (test(>= ))
+    (pedido naranjas ?p $?resto)
+    (lineaPedido naranjas ?)
+    (test(<= ?c ?n))
+    (test(<= ?p ?n))
+
+    =>
+    (assert(lineaPedido naranjas ?p $?resto))
+    (assert(stock naranjas(- ?n ?p)))
+
 )
 (defrule coger_manzanas
-    (stock naranjas ?m)
+    (stock manzanas ?m)
+    (robot capacidad ?c)
+    (pedido $?pre manzanas ?p $?resto)
+    (test(<= ?c ?m))
+    (test(<= ?p ?m))
+    =>
+    (assert(lineaPedido $?pre manzanas ?p $?resto))
+    (assert(stock manzanas(- ?m ?p)))
 
 )
 (defrule coger_uvas
-    (stock naranjas ?u)
+    (stock uva ?u)
+    (robot capacidad ?c)
+    (pedido $?pre uva ?p )
+    (test(<= ?c ?n))
+    (test(<= ?p ?n))
+    =>
+    (assert(lineaPedido $? uva ?p))
+    (assert(stock uva(- ?n ?p)))
 
 )
 (defrule meta
